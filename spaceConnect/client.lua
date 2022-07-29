@@ -22,14 +22,22 @@ function ConnectMenu()
         RageUI.Visible(connectMenu, true)
         while isMenuOpen do
             RageUI.IsVisible(connectMenu, function()
-                RageUI.Button("Appuyer Sur [ENTREE] pour entrée en ville ", nil, {}, not connect, {
+                RageUI.Button("Appuyer sur ~b~[ENTRER]~s~ pour spwan", nil, {}, not connect, {
                     onSelected = function()
                         connect = true
                     end
                 })
 
                 if connect then
+                    RageUI.PercentagePanel(chargement, "Connection en cours... ~b~"..math.floor(chargement*100).."%", "", "", {})
+        
+                    if chargement < 1.0 then
+                        chargement = chargement + 0.002
+                    else 
+                        chargement = 0
+                    end
 
+                    if chargement >= 1.0 then
                         DoScreenFadeOut(1500)
                         Wait(2000)
                         RenderScriptCams(false, false, 0, true, true)
