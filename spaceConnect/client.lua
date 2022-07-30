@@ -1,20 +1,16 @@
 local ESX = nil 
 
-TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
+
 
 local isMenuOpen = false
-local connect = false
-local chargement = 0.0
+
 
 local connectMenu = RageUI.CreateMenu("Space Life ", "bienvenue sur ~b~Space life rp")
 connectMenu.Closed = function()
     isMenuOpen = false
 end
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-	StartAnimConnect()
-end)
+
 
 function ConnectMenu()
     if not isMenuOpen then
@@ -27,6 +23,10 @@ function ConnectMenu()
                         connect = true
                     end
                 })
+					
+					local chargement = 0.0
+					local connect = false
+
 
                 if connect then
                     RageUI.PercentagePanel(chargement, "Connection en cours... ~b~"..math.floor(chargement*100).."%", "", "", {})
@@ -47,7 +47,6 @@ function ConnectMenu()
                         RageUI.CloseAll()
                         isMenuOpen = false
                         DoScreenFadeIn(2000)
-                        TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_MOBILE", 0, 0)
                         Wait(4000)
                         ClearPedTasks(PlayerPedId())
                         ESX.ShowAdvancedNotification("Bienvenue sur ~b~space life rp", false, false , false, 1)
